@@ -4,14 +4,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_2_d1_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_2_d1_data }}
     }
   ]
 };
@@ -25,14 +25,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_2_d2_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_2_d2_data }}
     }
   ]
 };
@@ -44,14 +44,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_2_a2_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_2_a2_data }}
     }
   ]
 };
@@ -64,14 +64,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_2_b1_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_2_b1_data }}
     }
   ]
 };
@@ -84,14 +84,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_2_a1_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_2_a1_data }}
     }
   ]
 };
@@ -105,14 +105,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_2_b2_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_2_b2_data }}
     }
   ]
 };

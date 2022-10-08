@@ -1,21 +1,21 @@
-var myChart = echarts.init(document.getElementById('myChart'));	
+var graph_1_d1 = echarts.init(document.getElementById('graph_1_d1'));	
 window.onresize = function() {
-    myChart.resize();
+    graph_1_d1.resize();
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_1_d1_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_1_d1_data }}
     }
   ]
 };
-myChart.setOption(option);
+graph_1_d1.setOption(option);
 
 
 
@@ -25,14 +25,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_1_d2_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_1_d2_data }}
     }
   ]
 };
@@ -44,14 +44,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_1_d3_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_1_d3_data }}
     }
   ]
 };
@@ -64,14 +64,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_1_b1_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_1_b1_data }}
     }
   ]
 };
@@ -84,14 +84,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_1_a1_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_1_a1_data }}
     }
   ]
 };
@@ -105,14 +105,14 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+    data: {{ graph_1_b2_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
+      data: {{ graph_1_b2_data }}
     }
   ]
 };
