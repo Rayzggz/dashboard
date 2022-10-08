@@ -14,7 +14,12 @@ class CompressMethods(Enum):
     median = 2
 
 
-def processNull(data: list):
+def processNaN(data: list):
+    """
+    fill NaN value in data list
+    :param data: data list
+    :return: data list after filled
+    """
     re = data[:]
     for i in range(0, len(data)):
         if np.isnan(data[i]):
@@ -44,10 +49,15 @@ def processNull(data: list):
 
 
 def compressData(data: list, method: CompressMethods):
-    if len([0 for _ in data if np.isnan(_)]) != 0:
-        raise Exception("NaN")
+    """
+    Compress data to one value
+    :param data: the list need to compress
+    :param method: the method used to compress
+    :return: one value that represent the data list
+    """
     tmp = [a for a in data if a > -1]
-    tmp = processNull(tmp)
+    tmp = processNaN(tmp)
+    assert len([0 for a in data if np.isnan(a)]) == 0
     if method == CompressMethods.average:
         return statistics.mean(tmp)
     elif method == CompressMethods.median:
@@ -58,6 +68,13 @@ def compressData(data: list, method: CompressMethods):
 
 
 def washData(data: list, method: CompressMethods = CompressMethods.average, unit: int = 1):
+    """
+    change the data unit from 1 hours to <unit> hours
+    :param data: the data list
+    :param method: the method used to compress
+    :param unit: the time unit of data
+    :return: data list after washing, if the data list is invalid, it should return [-1]
+    """
     assert unit > 0
     assert len(data) > 0
     null_num = len([a for a in data if np.isnan(a)])
@@ -68,6 +85,7 @@ def washData(data: list, method: CompressMethods = CompressMethods.average, unit
     tmp.extend([-1 for _ in range(0, len(data) % unit)])
     re = []
     for i in range(0, len(tmp), step=unit):
+        # wash data
         re.extend(compressData(tmp[i:i + unit], method))
     return re
 
