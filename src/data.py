@@ -14,11 +14,17 @@ class TimeUnit(Enum):
     day = 24
     year = 24 * 365
 
+    def __int__(self):
+        return self.value
+
 
 class CompressMethods(Enum):
     average = 1
     median = 2
     sum = 3
+
+    def __int__(self):
+        return self.value
 
 
 def processNaN(data: list):
@@ -65,6 +71,8 @@ def compressData(data: list, method: CompressMethods):
     tmp = [a for a in data if a > -1]
     tmp = processNaN(tmp)
     assert len([0 for a in data if np.isnan(a)]) == 0
+    if len(data) == 1:
+        return data
     if method == CompressMethods.average:
         return statistics.mean(tmp)
     elif method == CompressMethods.median:
@@ -77,10 +85,16 @@ def compressData(data: list, method: CompressMethods):
 
 
 def compressNames(names: list, unit: TimeUnit):
+    """
+    compress names
+    :param names: names list
+    :param unit: time unit
+    :return: names list after compress
+    """
     tmp = names.copy()
-    tmp.extend([-1 for _ in range(0, len(names) % unit.value())])
+    tmp.extend([-1 for _ in range(0, len(names) % unit.value)])
     re = []
-    for i in range(0, len(tmp), step=unit.value()):
+    for i in range(0, len(tmp), step=unit.value):
         if unit == TimeUnit.hour:
             re.extend(names[i])
         elif unit == TimeUnit.day:
@@ -93,7 +107,7 @@ def compressNames(names: list, unit: TimeUnit):
 
 
 def washData(data: list, ran=None, method: CompressMethods = CompressMethods.average,
-             unit: TimeUnit = TimeUnit.day):
+             unit: TimeUnit = TimeUnit.hour):
     """
     change the data unit from 1 hours to <unit> hours
     :param ran: range of data
@@ -107,15 +121,15 @@ def washData(data: list, ran=None, method: CompressMethods = CompressMethods.ave
     assert len(data) > 0
     assert len(ran) == 2
     null_num = len([a for a in data if np.isnan(a)])
-    if null_num < len(data) / 2:
+    if null_num > len(data) / 2:
         # invalid data
         return [-1]
     tmp = data.copy()[ran[0]:ran[1]]
-    tmp.extend([-1 for _ in range(0, len(data) % unit.value())])
+    tmp.extend([-1 for _ in range(0, len(data) % unit.value)])
     re = []
-    for i in range(0, len(tmp), step=unit.value()):
+    for i in range(0, len(tmp), unit.value):
         # wash data
-        re.extend(compressData(tmp[i:i + unit.value()], method))
+        re.extend(compressData(tmp[i:i + unit.value], method))
     return re
 
 
@@ -128,9 +142,9 @@ def parseData(names: list, value: dict, prefix: str):
     :return: 2D list, first one is name timeStamp, second one is data, which is a nD list, and inside data, the first one is names, the remaining is value, the len of remaining should equal to len of names.
     """
     # re is names add value
-    re = [[], [value["Series Name"].tolist()]]
+    re = [["Series Name"], [value["Series Name"].tolist()]]
     for a in range(0, len(names)):
-        if names[a][0:len(prefix)] == prefix:
+        if names[a][:len(prefix)] == prefix:
             re[0].append(str(names[a]).split(' - ')[1])
             re[1].append(value[names[a]].tolist())
     return re
@@ -168,3 +182,16 @@ def readData():
 
 
 dorm, non_dorm, weather = readData()
+
+
+def getData(data: list, prefix: str):
+    """
+    get data from 2D list
+    :param data: 2D list
+    :param prefix: name of data
+    :return: data list
+    """
+    for i in range(0, len(data[0])):
+        if data[0][i][:len(prefix)] == prefix:
+            return data[1][i]
+    raise Exception("prefix not found getData")

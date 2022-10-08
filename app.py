@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from src import data
+from src import data, imageTest, graphs
 
 app = Flask(__name__, static_folder='html',
             template_folder='html',
@@ -8,11 +8,14 @@ app = Flask(__name__, static_folder='html',
 app.debug = True
 
 
-@app.route('/lib/custom.js')
+@app.route('/lib/custom1.js')
 def js():
-    file = open(app.static_folder + "/lib/custom.js", "r", encoding="utf-8")
+    file = open(app.static_folder + "/lib/custom1.js", "r", encoding="utf-8")
     content = file.read()
     file.close()
+    n, d = graphs.graph_1_a1()
+    content = content.replace("{{ graph_1_a1_names }}", n)
+    content = content.replace("{{ graph_1_a1_data }}", d)
     return content
 
 
@@ -22,4 +25,5 @@ def indexHtml():  # put application's code here
 
 
 if __name__ == '__main__':
-    app.run()
+    # app.run()
+    graphs.graph_1_a1()
