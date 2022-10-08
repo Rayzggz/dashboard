@@ -38,24 +38,24 @@ var option = {
 };
 graph_1_d2.setOption(option);
 
-var graph_1_d3 = echarts.init(document.getElementById('graph_1_d3'));	
+var graph_1_a2 = echarts.init(document.getElementById('graph_1_a2'));	
 window.onresize = function() {
-    graph_1_d3.resize();
+    graph_1_a2.resize();
   };
 var option = {
   xAxis: {
-    data: {{ graph_1_d3_names }}
+    data: {{ graph_1_a2_names }}
   },
   yAxis: {},
   series: [
     {
       name: '销量',
       type: 'bar',
-      data: {{ graph_1_d3_data }}
+      data: {{ graph_1_a2_data }}
     }
   ]
 };
-graph_1_d3.setOption(option);
+graph_1_a2.setOption(option);
 
 
 var graph_1_b1 = echarts.init(document.getElementById('graph_1_b1'));	
