@@ -11,4 +11,6 @@ def hello_world():  # put application's code here
 
 if __name__ == '__main__':
     # app.run()
-    data.readData()
+    dorm, non_dorm, weather = data.readData()
+    with open("dorm.txt", 'w') as f:
+        f.write(str(dorm))
