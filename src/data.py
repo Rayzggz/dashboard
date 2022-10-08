@@ -1,6 +1,6 @@
 from enum import Enum
 import statistics
-
+from src import uilts
 import pandas as pd
 import numpy as np
 
@@ -84,25 +84,37 @@ def compressData(data: list, method: CompressMethods):
         raise Exception()
 
 
-def compressNames(names: list, unit: TimeUnit):
+def compressNames(names: list, ran=None, unit: TimeUnit = TimeUnit.hour, convert_name: bool = False):
     """
     compress names
+    :param convert_name: auto convert name
+    :param ran: range of names
     :param names: names list
     :param unit: time unit
     :return: names list after compress
     """
-    tmp = names.copy()
+    if ran is None:
+        ran = [0, len(names)]
+    tmp = names.copy()[ran[0]:ran[1]]
     tmp.extend([-1 for _ in range(0, len(names) % unit.value)])
     re = []
     for i in range(0, len(tmp), step=unit.value):
+        tmp = ""
         if unit == TimeUnit.hour:
-            re.extend(names[i])
+            tmp = names[i]
+            if convert_name:
+                tmp = uilts.name4hour(tmp)
         elif unit == TimeUnit.day:
-            re.extend(str(names[i]).split("T")[0])
+            tmp = str(names[i]).split("T")[0]
+            if convert_name:
+                tmp = uilts.name4day(tmp)
         elif unit == TimeUnit.year:
-            re.extend(str(names[i])[:4])
+            tmp = str(names[i])[:4]
+            if convert_name:
+                tmp = uilts.name4year(tmp)
         else:
             raise Exception("TimeUnit out")
+        re.append(tmp)
     return re
 
 
@@ -117,7 +129,7 @@ def washData(data: list, ran=None, method: CompressMethods = CompressMethods.ave
     :return: data list after washing, if the data list is invalid, it should return [-1]
     """
     if ran is None:
-        ran = [-1, -1]
+        ran = [0, len(data)]
     assert len(data) > 0
     assert len(ran) == 2
     null_num = len([a for a in data if np.isnan(a)])
@@ -177,7 +189,6 @@ def readData():
     non_dorm_data[1] = delSomeData(non_dorm_data[1])
     _weather = parseData(_weather.columns, _weather, weather_prefix_name)
     _weather[1] = delSomeData(_weather[1])
-    print(dorm_data[0])
     return dorm_data, non_dorm_data, _weather
 
 

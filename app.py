@@ -8,14 +8,25 @@ app = Flask(__name__, static_folder='html',
 app.debug = True
 
 
+def processReplace(content: str, prefix: str, graph: tuple):
+    """
+    process replace
+    :param prefix: prefix of replacement
+    :param content: content
+    :param graph: graph
+    :return: content
+    """
+    return content.replace("{{ " + prefix + "_names }}", graph[0]).replace("{{ " + prefix + "_data }}", graph[1])
+
+
 @app.route('/lib/custom1.js')
 def js():
     file = open(app.static_folder + "/lib/custom1.js", "r", encoding="utf-8")
     content = file.read()
     file.close()
-    n, d = graphs.graph_1_a1()
-    content = content.replace("{{ graph_1_a1_names }}", n)
-    content = content.replace("{{ graph_1_a1_data }}", d)
+    processReplace(content, "graph_1_a1", graphs.graph_1_a1())
+    processReplace(content, "graph_1_d1", graphs.graph_1_d1())
+    processReplace(content, "graph_1_d2", graphs.graph_1_d2())
     return content
 
 
@@ -25,5 +36,5 @@ def indexHtml():  # put application's code here
 
 
 if __name__ == '__main__':
-    # app.run()
-    graphs.graph_1_a1()
+    app.run()
+    # graphs.graph_1_a1()
