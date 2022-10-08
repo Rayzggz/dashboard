@@ -10,7 +10,6 @@ app.debug = True
 
 @app.route('/lib/custom.js')
 def js():
-    dorm, non_dorm, weather = data.readData()
     file = open(app.static_folder + "/lib/custom.js", "r", encoding="utf-8")
     content = file.read()
     file.close()

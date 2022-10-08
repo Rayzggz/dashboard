@@ -9,9 +9,16 @@ non_dorm_building_name = "Thompson, William Oxley, Memorial Library"
 weather_prefix_name = "Ohio State University"
 
 
+class TimeUnit(Enum):
+    hour = 1
+    day = 24
+    year = 24 * 365
+
+
 class CompressMethods(Enum):
     average = 1
     median = 2
+    sum = 3
 
 
 def processNaN(data: list):
@@ -20,7 +27,7 @@ def processNaN(data: list):
     :param data: data list
     :return: data list after filled
     """
-    re = data[:]
+    re = data.copy()
     for i in range(0, len(data)):
         if np.isnan(data[i]):
             # if Nan is first item
@@ -62,37 +69,59 @@ def compressData(data: list, method: CompressMethods):
         return statistics.mean(tmp)
     elif method == CompressMethods.median:
         return statistics.median(tmp)
+    elif method == CompressMethods.sum:
+        return sum(tmp)
     else:
         print("err: compressData out")
         raise Exception()
 
 
-def washData(data: list, method: CompressMethods = CompressMethods.average, unit: int = 1):
+def compressNames(names: list, unit: TimeUnit):
+    tmp = names.copy()
+    tmp.extend([-1 for _ in range(0, len(names) % unit.value())])
+    re = []
+    for i in range(0, len(tmp), step=unit.value()):
+        if unit == TimeUnit.hour:
+            re.extend(names[i])
+        elif unit == TimeUnit.day:
+            re.extend(str(names[i]).split("T")[0])
+        elif unit == TimeUnit.year:
+            re.extend(str(names[i])[:4])
+        else:
+            raise Exception("TimeUnit out")
+    return re
+
+
+def washData(data: list, ran=None, method: CompressMethods = CompressMethods.average,
+             unit: TimeUnit = TimeUnit.day):
     """
     change the data unit from 1 hours to <unit> hours
+    :param ran: range of data
     :param data: the data list
     :param method: the method used to compress
     :param unit: the time unit of data
     :return: data list after washing, if the data list is invalid, it should return [-1]
     """
-    assert unit > 0
+    if ran is None:
+        ran = [-1, -1]
     assert len(data) > 0
+    assert len(ran) == 2
     null_num = len([a for a in data if np.isnan(a)])
     if null_num < len(data) / 2:
         # invalid data
         return [-1]
-    tmp = data[:]
-    tmp.extend([-1 for _ in range(0, len(data) % unit)])
+    tmp = data.copy()[ran[0]:ran[1]]
+    tmp.extend([-1 for _ in range(0, len(data) % unit.value())])
     re = []
-    for i in range(0, len(tmp), step=unit):
+    for i in range(0, len(tmp), step=unit.value()):
         # wash data
-        re.extend(compressData(tmp[i:i + unit], method))
+        re.extend(compressData(tmp[i:i + unit.value()], method))
     return re
 
 
 def parseData(names: list, value: dict, prefix: str):
     """
-
+    parse data we needed from csv file(specific building)
     :param names: name list from DataFrame columns
     :param value: DataFrame
     :param prefix: data prefix
@@ -107,6 +136,15 @@ def parseData(names: list, value: dict, prefix: str):
     return re
 
 
+def delSomeData(value: list):
+    # delete 2017 content, because it starts in 1/1/2017 05
+    re = []
+    # 8760 hours in 2017
+    for i in range(0, len(value)):
+        re.append(value[i][8760 - 1 - 4:])
+    return re
+
+
 def readData():
     """
     read data from csv files
@@ -116,10 +154,17 @@ def readData():
     :return: dorm_data, non_dorm_data, weather - 2D list, first one is name timeStamp, second one is data, which is a nD list, and inside data, the first one is names, the remaining is value, the len of remaining should equal to len of names.
     """
     global dorm_building_name, non_dorm_building_name
-    dorm = pd.read_csv('src/data/dorm_buildings.csv', delimiter=',')
-    non_dorm = pd.read_csv('src/data/non-dorm_buildings.csv', delimiter=',')
-    weather = pd.read_csv('src/data/weather_data.csv', delimiter=',')
-    dorm_data = parseData(dorm.columns, dorm, dorm_building_name)
-    non_dorm_data = parseData(non_dorm.columns, non_dorm, non_dorm_building_name)
-    weather = parseData(weather.columns, weather, weather_prefix_name)
-    return dorm_data, non_dorm_data, weather
+    _dorm = pd.read_csv('src/data/dorm_buildings.csv', delimiter=',')
+    _non_dorm = pd.read_csv('src/data/non-dorm_buildings.csv', delimiter=',')
+    _weather = pd.read_csv('src/data/weather_data.csv', delimiter=',')
+    dorm_data = parseData(_dorm.columns, _dorm, dorm_building_name)
+    dorm_data[1] = delSomeData(dorm_data[1])
+    non_dorm_data = parseData(_non_dorm.columns, _non_dorm, non_dorm_building_name)
+    non_dorm_data[1] = delSomeData(non_dorm_data[1])
+    _weather = parseData(_weather.columns, _weather, weather_prefix_name)
+    _weather[1] = delSomeData(_weather[1])
+    print(dorm_data[0])
+    return dorm_data, non_dorm_data, _weather
+
+
+dorm, non_dorm, weather = readData()
