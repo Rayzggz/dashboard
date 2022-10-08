@@ -1,6 +1,3 @@
-
-
-
 var myChart = echarts.init(document.getElementById('graph1'));	
 var option = {
   xAxis: {
