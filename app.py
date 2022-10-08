@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from src import data, imageTest, graphs
+from src import data, imageTest, graphs, test
 
 app = Flask(__name__, static_folder='html',
             template_folder='html',
@@ -8,7 +8,7 @@ app = Flask(__name__, static_folder='html',
 app.debug = True
 
 
-def processReplace(content: str, prefix: str, graph: tuple):
+def processReplace(content: str, prefix: str, graph: list):
     """
     process replace
     :param prefix: prefix of replacement
@@ -24,9 +24,12 @@ def js():
     file = open(app.static_folder + "/lib/custom1.js", "r", encoding="utf-8")
     content = file.read()
     file.close()
-    processReplace(content, "graph_1_a1", graphs.graph_1_a1())
-    processReplace(content, "graph_1_d1", graphs.graph_1_d1())
-    processReplace(content, "graph_1_d2", graphs.graph_1_d2())
+    content = processReplace(content, "graph_1_a1", graphs.graph_1_a1())
+    content = processReplace(content, "graph_1_d1", graphs.graph_1_d1())
+    content = processReplace(content, "graph_1_d2", graphs.graph_1_d2())
+    content = processReplace(content, "graph_1_a2", ["[1]", "[1]"])
+    content = processReplace(content, "graph_1_b1", ["[1]", "[1]"])
+    content = processReplace(content, "graph_1_b2", ["[1]", "[1]"])
     return content
 
 
@@ -36,5 +39,5 @@ def indexHtml():  # put application's code here
 
 
 if __name__ == '__main__':
-    app.run()
-    # graphs.graph_1_a1()
+    # app.run()
+    test.dailyCostTest()

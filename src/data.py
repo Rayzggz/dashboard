@@ -66,13 +66,13 @@ def compressData(data: list, method: CompressMethods):
     Compress data to one value
     :param data: the list need to compress
     :param method: the method used to compress
-    :return: one value that represent the data list
+    :return: one value that represent the data list, float
     """
     tmp = [a for a in data if a > -1]
     tmp = processNaN(tmp)
     assert len([0 for a in data if np.isnan(a)]) == 0
     if len(data) == 1:
-        return data
+        return data[0]
     if method == CompressMethods.average:
         return statistics.mean(tmp)
     elif method == CompressMethods.median:
@@ -80,8 +80,7 @@ def compressData(data: list, method: CompressMethods):
     elif method == CompressMethods.sum:
         return sum(tmp)
     else:
-        print("err: compressData out")
-        raise Exception()
+        raise Exception("err: compressData out")
 
 
 def compressNames(names: list, ran=None, unit: TimeUnit = TimeUnit.hour, convert_name: bool = False):
@@ -98,7 +97,7 @@ def compressNames(names: list, ran=None, unit: TimeUnit = TimeUnit.hour, convert
     tmp = names.copy()[ran[0]:ran[1]]
     tmp.extend([-1 for _ in range(0, len(names) % unit.value)])
     re = []
-    for i in range(0, len(tmp), step=unit.value):
+    for i in range(0, len(tmp), unit.value):
         tmp = ""
         if unit == TimeUnit.hour:
             tmp = names[i]
@@ -132,16 +131,16 @@ def washData(data: list, ran=None, method: CompressMethods = CompressMethods.ave
         ran = [0, len(data)]
     assert len(data) > 0
     assert len(ran) == 2
-    null_num = len([a for a in data if np.isnan(a)])
-    if null_num > len(data) / 2:
+    tmp = data.copy()[ran[0]:ran[1]]
+    null_num = len([a for a in tmp if np.isnan(a)])
+    if null_num > len(tmp) / 2:
         # invalid data
         return [-1]
-    tmp = data.copy()[ran[0]:ran[1]]
     tmp.extend([-1 for _ in range(0, len(data) % unit.value)])
     re = []
     for i in range(0, len(tmp), unit.value):
         # wash data
-        re.extend(compressData(tmp[i:i + unit.value], method))
+        re.append(compressData(tmp[i:i + unit.value], method))
     return re
 
 
