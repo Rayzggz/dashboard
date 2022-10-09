@@ -22,7 +22,7 @@ var option = {
 graph_3_c1.setOption(option);
 
 	
-document.getElementById('graph_3_d2').innerHTML = '<h1 class="mdui-valign ">{{ graph_3_d2_data }} $</h1>';
+document.getElementById('graph_3_d2').innerHTML = '<h1 class="mdui-center">{{ graph_3_d2_data }} $</h1>';
 
 var graph_3_b1 = echarts.init(document.getElementById('graph_3_b1'));	
 window.onresize = function() {
