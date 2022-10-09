@@ -30,7 +30,14 @@ def graph_1_a2():
     re2 = cost.getDailyCost(data.current_data, 1)
     # names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
     # assert len(names) == 2
-    return str(uilts.postProcess((re - re2) / re * 100))
+    if re - re2 > 0:
+        tmp = "arrow_upward"
+        color = "mdui-text-color-red-300"
+    else:
+        tmp = "arrow_downward"
+        color = "mdui-text-color-green-300"
+    start = "<span class=\"" + color + "\"><i class=\"mdui-icon material-icons\">" + tmp + "</i>"
+    return start + str(uilts.postProcess((re - re2) / re * 100)) + "</span>"
 
 
 def graph_1_b1():
