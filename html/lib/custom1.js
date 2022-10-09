@@ -30,7 +30,7 @@ var option = {
 	name: 'time(hour)'
   },
   yAxis: {
-	  name: 'total energy comsumptiomption (kBTV)'
+	  name: 'total energy comsumptiomption (kBTU)'
   },
   series: [
     {

@@ -26,9 +26,12 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: {{ graph_2_a1_names }}
+    data: {{ graph_2_a1_names }},
+	name: 'days'
   },
-  yAxis: {},
+  yAxis: {
+	  name: 'kBTU'
+  },
   series: [
     {
       name: '销量',

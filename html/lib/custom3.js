@@ -9,7 +9,7 @@ var option = {
     data: {{ graph_3_c1_names }}
   },
   yAxis: {
-	  name: 'kBTV',
+	  name: 'kBTU',
 	  type: 'value'
   },
   series: [
@@ -65,7 +65,7 @@ var option = {
   },
   yAxis: {
 	  type: 'value',
-	  name: 'total energy usage for a month(kBTV)'
+	  name: 'total energy usage for a month(kBTU)'
   },
   series: [
     {
