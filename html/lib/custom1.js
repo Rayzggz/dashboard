@@ -1,4 +1,4 @@
-document.getElementById('graph_1_d1').innerHTML = '<h2>{{ graph_1_d1_data }} kBTU</h2>';
+document.getElementById('graph_1_d1').innerHTML = '<p>{{ graph_1_d1_data }} kBTU</p>';
 
 document.getElementById('graph_1_d2').innerHTML = '<h2>{{ graph_1_d2_data }} $</h2>';
 
