@@ -1,4 +1,4 @@
-from src import data, cost
+from src import data, cost, uilts
 
 
 def graph_1_a1():
@@ -27,7 +27,7 @@ def graph_1_a2():
     re2 = cost.getDailyCost(data.current_data, 1)
     # names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
     # assert len(names) == 2
-    return str(round((re - re2) / re * 100, data.round_num))
+    return str(uilts.postProcess((re - re2) / re * 100))
 
 
 def graph_1_b1():
@@ -71,7 +71,7 @@ def graph_1_d1():
     ran = [len(tmp) - data.TimeUnit.day.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.sum, unit=data.TimeUnit.day)
     assert len(re) == 1
-    return str(round(re[0], data.round_num))
+    return str(uilts.postProcess(re[0]))
 
 
 def graph_1_d2():
@@ -81,7 +81,7 @@ def graph_1_d2():
     :return: None
     """
     re = cost.getDailyCost(data.current_data, 0)
-    return str(round(re, data.round_num))
+    return str(uilts.postProcess(re))
 
 
 def graph_2_d1():
@@ -95,7 +95,7 @@ def graph_2_d1():
     ran = [len(tmp) - data.TimeUnit.month.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.sum, unit=data.TimeUnit.month)
     assert len(re) == 1
-    return str(round(re[0], data.round_num))
+    return str(uilts.postProcess(re[0]))
 
 
 def graph_2_d2():
@@ -104,7 +104,7 @@ def graph_2_d2():
     Monthly cost
     :return: None
     """
-    return str(round(cost.getMonthlyCost(data.current_data), data.round_num))
+    return str(uilts.postProcess(cost.getMonthlyCost(data.current_data)))
 
 
 def graph_2_d3():
@@ -113,7 +113,7 @@ def graph_2_d3():
     Monthly cost per person
     :return: None
     """
-    return str(round(cost.getMonthlyCost(data.current_data) / data.current_data_building_number_people, data.round_num))
+    return str(uilts.postProcess(cost.getMonthlyCost(data.current_data) / data.current_data_building_number_people))
 
 
 def graph_2_a1():
@@ -185,7 +185,7 @@ def graph_3_d2():
     Yearly cost
     :return: None
     """
-    return str(round(cost.getYearlyCost(data.current_data), data.round_num))
+    return str(uilts.postProcess(cost.getYearlyCost(data.current_data)))
 
 
 def graph_3_b1():
