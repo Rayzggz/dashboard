@@ -7,7 +7,21 @@
 /*}*/
 
 .unit-opacity {
-  opacity: .6;
+    opacity: .6;
+}
+
+#tab {
+    z-index: 11;
+}
+
+#loading {
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    display: block;
+    position: absolute;
+    left: 0;
 }
 
 
