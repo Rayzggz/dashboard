@@ -40,6 +40,10 @@ var option = {
   series: [
     {
       type: 'pie',
+        label:{
+            fontSize:9,
+            position: 'inner'
+        },
       data: {{ graph_3_b1_data }}
     }
   ]
@@ -59,6 +63,10 @@ var option = {
   series: [
     {
       type: 'pie',
+        label:{
+            fontSize:9,
+            position: 'inner'
+        },
       data: {{ graph_3_b2_data }}
     }
   ]

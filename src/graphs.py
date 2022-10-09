@@ -252,7 +252,7 @@ def graph_3_c2():
     for i in range(11, -1, -1):
         re.append(str(cost.getMonthlyCost(data.current_data, i)))
     assert len(re) == 12
-    return [str(list(range(12, 0, -1))), str(re)]
+    return [str(list(range(1, 13))), str(re)]
 
 
 def graph_4_c2():
