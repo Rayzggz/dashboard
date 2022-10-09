@@ -13,10 +13,7 @@ var option = {
 	  name: 'temperature(Farenheit)'
   },
   series: [
-    {
-      type: 'line',
-      data: {{ graph_4_c2_data }}
-    }
+      {{ graph_4_c2_data }}
   ]
 };
 graph_4_c2.setOption(option);
