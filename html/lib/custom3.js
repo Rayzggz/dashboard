@@ -18,7 +18,7 @@ var option = {
 graph_3_c1.setOption(option);
 
 	
-document.getElementById('graph_3_d2').innerHTML = '<h2>{{ graph_3_d2_data }}</h2>';
+document.getElementById('graph_3_d2').innerHTML = '<h2>{{ graph_3_d2_data }}$</h2>';
 
 var graph_3_b1 = echarts.init(document.getElementById('graph_3_b1'));	
 window.onresize = function() {
