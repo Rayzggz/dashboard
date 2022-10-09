@@ -82,7 +82,7 @@ def page4():
 
 @app.route('/')
 def indexHtml():  # put application's code here
-    return render_template('index.html', current_date=data.current_date.strftime("%m/%d/%Y"))
+    return render_template('index.html', current_date=data.current_date.strftime("%m/%d/%Y"), building_name=data.current_building_name)
 
 
 if __name__ == '__main__':

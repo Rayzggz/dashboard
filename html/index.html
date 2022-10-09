@@ -1,328 +1,347 @@
 <!DOCTYPE html>
 <html>
- <head> 
-  <meta charset="utf-8" /> 
-  <meta name="viewport" content="width=device-width" /> 
-  <title>
-			Energy Dashboard
-		</title> 
-  <link rel="stylesheet" href="lib/mdui/css/mdui.min.css" /> 
-  <script src="lib/mdui/js/mdui.min.js"></script> 
-  <script src="lib/echarts/echarts.js"></script> 
-  
- </head> 
- <body class="mdui-theme-primary-deep-purple mdui-theme-accent-pink mdui-bottom-nav-fixed"> 
-  <div class="mdui-toolbar mdui-color-theme"> 
-   <span class="mdui-typo-title">Energy Dashboard for {{ current_date|safe }}</span>
-  </div> 
-  <!-- TO DO temp Body start --> 
-  <div class="mdui-container"> 
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>
+        Energy Dashboard
+    </title>
+    <link rel="stylesheet" href="lib/mdui/css/mdui.min.css"/>
+    <script src="lib/mdui/js/mdui.min.js"></script>
+    <script src="lib/echarts/echarts.js"></script>
 
-    <div id="page1"> 
-     <div class="mdui-typo"> 
-      <h1>Daily Graphs</h1> 
-     </div> 
-
-     <div class="mdui-row"> 
-      <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_1_d1" class="mdui-valign " style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff"> 
-			 <div class="mdui-card-primary-subtitle" style="color:black">Total energy consumption</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-   
-   	  <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_1_d2" class="mdui-valign " style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff"> 
-			 <div class="mdui-card-primary-subtitle" style="color:black">Total cost of energy</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-	  
-	  <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_1_a2" class="mdui-valign " style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Percentage Difference: Yesterday v.s. Today</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-		 
-		 <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_1_b1" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Energy(kBTU) consumption percentage</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-	  
-     </div> 
-		
-    <br>
-		
-	
-	<div class="mdui-row">
-		<div class="mdui-col-xs-9"> 
-	       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_1_a1" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Energy consumption in 24 hours</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-		<div class="mdui-col-xs-3"> 
-			<div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_1_b2" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Cost percentage</div>
-         </div> 
-        </div> 
-        
-       </div>
-			</div> 
-		</div> 
-	</div>
-	 
-    <div id="page2">
-	<div class="mdui-typo"> 
-      <h1>Monthly Graphs</h1> 
-     </div> 
-		<div class="mdui-row"> 
-      <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_2_d1" class="mdui-valign " style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Total energy consumption</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-   
-   	  <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_2_d2" class="mdui-valign " style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Total cost of energy</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-
-	  <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_2_d3" class="mdui-valign" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Per capita expenditure</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-		 
-		 <div class="mdui-col-xs-3"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_2_b1" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Energy(kBTU) consumption percentage</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-	  
-     </div> 
-		
-    <br>
-		
-	
-	<div class="mdui-row">
-		<div class="mdui-col-xs-9"> 
-	       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_2_a1" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Daily energy consumption in a month</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-		<div class="mdui-col-xs-3"> 
-			<div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_2_b2" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Cost percentage </div>
-         </div> 
-        </div> 
-        
-       </div>
-			</div> 
-		</div> 
-
-
-    </div> 
-	
-	<div id="page3">
-	<div class="mdui-typo"> 
-      <h1>Yearly Graphs</h1> 
-     </div> 
-		
-		<div class="mdui-row"> 
-      <div class="mdui-col-xs-12"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_3_c1" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Yearly change of total energy consumption</div>
-         </div> 
-        </div> 
-        
-       </div> 
-      </div> 
-   
-     </div> 
-		
-    <br>
-		
-	
-	<div class="mdui-row">
-		<div class="mdui-col-xs-4"> 
-	       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_3_d2" class="mdui-valign " style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Total cost of energy</div>
-         </div> 
-        </div> 
-       </div> 
-      </div> 
-		<div class="mdui-col-xs-4"> 
-			<div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_3_b1" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Energy(kBTU) consumption percentage</div>
-         </div> 
-        </div> 
-       </div>
-			</div> 
-		<div class="mdui-col-xs-4"> 
-			<div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_3_b2" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Cost percentage</div>
-         </div> 
-        </div> 
-       </div>
-			</div>
-		</div> 
-		
-		<br>
-		
-		<div class="mdui-row"> 
-      <div class="mdui-col-xs-12"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_3_c2" style="width: 100%;height:200px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Monthly change of energy consumption within a year</div>
-         </div> 
-        </div> 
-       </div> 
-      </div> 
-   
-     </div> 
-		
-		
-		
-    </div> 
-	
-	<div id="page4">
-	<div class="mdui-typo"> 
-      <h1>Temperature Graphs</h1> 
-     </div> 
-		
-		<div class="mdui-row"> 
-      <div class="mdui-col-xs-12"> 
-       <div class="mdui-card"> 
-        <div class="mdui-card-media"> 
-         <div id="graph_4_c2" style="width: 100%;height:400px;"></div> 
-         <div class="mdui-card-media-covered" style="background:#ffffff">  
-			 <div class="mdui-card-primary-subtitle" style="color:black">Monthly change of temperature in a year</div>
-         </div> 
-        </div>  
-       </div> 
-      </div> 
-   
-     </div> 
-		
-    <br>
-		
-	
-	<!--<div class="mdui-row">
-		<div class="mdui-col-xs-12 mdui-text-center"> 
-	     <h1>It is our responsibility to stop Global Warming!</h1>
-       </div> 
-      </div> 	-->
-			</div>
-     
-   <!-- TO DO temp Body end --> 
- 
-  </div>
-	 </body>
-   <footer>
-   <div id="tab" class="mdui-bottom-nav mdui-tab mdui-color-theme mdui-tab-centered mdui-tab-full-width" mdui-tab>
-  <a href="#page1" class="mdui-ripple mdui-ripple-white">
-    <i class="mdui-icon material-icons">today</i>
-    <label>Daily Graphs</label>
-  </a>
-  <a href="#page2" class="mdui-ripple mdui-ripple-white">
-    <i class="mdui-icon material-icons">view_week</i>
-    <label>Monthly Graphs</label>
-  </a>
-  <a href="#page3" class="mdui-ripple mdui-ripple-white">
-    <i class="mdui-icon material-icons">public</i>
-    <label>Yearly Graphs</label>
-  </a>
-  <a href="#page4" class="mdui-ripple mdui-ripple-white">
-    <i class="mdui-icon material-icons">terrain</i>
-    <label>Temperature</label>
-  </a>
+</head>
+<body class="mdui-theme-primary-deep-purple mdui-theme-accent-pink mdui-bottom-nav-fixed">
+<div class="mdui-toolbar mdui-color-theme">
+    <span class="mdui-typo-title">Energy Dashboard for {{ current_date|safe }}</span>
+    <div class="mdui-chip mdui-valign" style="background-color: #953232">
+        <span class="mdui-chip-title">{{ building_name }}</span>
+    </div>
 </div>
+<!-- TO DO temp Body start -->
+<div class="mdui-container">
+
+    <div id="page1">
+        <div class="mdui-typo">
+            <h1>Daily Graphs</h1>
+        </div>
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_1_d1" class="mdui-valign " style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Total energy consumption</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_1_d2" class="mdui-valign " style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Total cost of energy</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_1_a2" class="mdui-valign " style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Percentage Difference: Yesterday
+                                v.s. Today
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_1_b1" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Energy(kBTU) consumption
+                                percentage
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-9">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_1_a1" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Energy consumption in 24 hours
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_1_b2" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Cost percentage</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page2">
+        <div class="mdui-typo">
+            <h1>Monthly Graphs</h1>
+        </div>
+        <div class="mdui-row">
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_2_d1" class="mdui-valign " style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Total energy consumption</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_2_d2" class="mdui-valign " style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Total cost of energy</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_2_d3" class="mdui-valign" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Per capita expenditure</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_2_b1" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Energy(kBTU) consumption
+                                percentage
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-9">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_2_a1" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Daily energy consumption in a
+                                month
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="mdui-col-xs-3">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_2_b2" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Cost percentage</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="page3">
+        <div class="mdui-typo">
+            <h1>Yearly Graphs</h1>
+        </div>
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-12">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_3_c1" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Yearly change of total energy
+                                consumption
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-4">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_3_d2" class="mdui-valign " style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Total cost of energy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdui-col-xs-4">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_3_b1" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Energy(kBTU) consumption
+                                percentage
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdui-col-xs-4">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_3_b2" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Cost percentage</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-12">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_3_c2" style="width: 100%;height:200px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Monthly change of energy
+                                consumption within a year
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div id="page4">
+        <div class="mdui-typo">
+            <h1>Temperature Graphs</h1>
+        </div>
+
+        <div class="mdui-row">
+            <div class="mdui-col-xs-12">
+                <div class="mdui-card">
+                    <div class="mdui-card-media">
+                        <div id="graph_4_c2" style="width: 100%;height:400px;"></div>
+                        <div class="mdui-card-media-covered" style="background:#ffffff">
+                            <div class="mdui-card-primary-subtitle" style="color:black">Monthly change of temperature in
+                                a year
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+
+        <!--<div class="mdui-row">
+            <div class="mdui-col-xs-12 mdui-text-center">
+             <h1>It is our responsibility to stop Global Warming!</h1>
+           </div>
+          </div> 	-->
+    </div>
+
+    <!-- TO DO temp Body end -->
+
+</div>
+</body>
+<footer>
+    <div id="tab" class="mdui-bottom-nav mdui-tab mdui-color-theme mdui-tab-centered mdui-tab-full-width" mdui-tab>
+        <a href="#page1" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">today</i>
+            <label>Daily Graphs</label>
+        </a>
+        <a href="#page2" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">view_week</i>
+            <label>Monthly Graphs</label>
+        </a>
+        <a href="#page3" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">public</i>
+            <label>Yearly Graphs</label>
+        </a>
+        <a href="#page4" class="mdui-ripple mdui-ripple-white">
+            <i class="mdui-icon material-icons">terrain</i>
+            <label>Temperature</label>
+        </a>
+    </div>
 
 </footer>
-  <script src="lib/custom1.js"></script>
-  <script src="lib/custom2.js"></script> 
-  <script src="lib/custom3.js"></script> 
-  <script src="lib/custom4.js"></script>
-  <script src="lib/autoplay.js"></script>
- 
+<script src="lib/custom1.js"></script>
+<script src="lib/custom2.js"></script>
+<script src="lib/custom3.js"></script>
+<script src="lib/custom4.js"></script>
+<script src="lib/autoplay.js"></script>
+
 </html>

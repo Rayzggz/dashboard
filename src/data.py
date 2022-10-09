@@ -214,6 +214,7 @@ def readData():
 
 dorm, non_dorm, weather = readData()
 current_data = dorm
+current_building_name = dorm_building_name
 
 
 def getData(data: list, prefix: str):
