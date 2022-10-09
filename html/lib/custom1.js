@@ -25,7 +25,7 @@ var option = {
           position: 'top',
           distance: 10,
           show: true,
-          formatter: ['{{ graph_1_a2_growthrate }}'].join('\n'),
+          formatter: ['{{ graph_1_a2_growthrate }} %'].join('\n'),
           backgroundColor: '#eee',
           borderColor: '#555',
           borderWidth: 2,
