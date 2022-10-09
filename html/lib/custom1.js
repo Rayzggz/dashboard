@@ -20,6 +20,27 @@ var option = {
       name: '销量',
       type: 'bar',
       data: {{ graph_1_a2_data }}
+	  label: {
+        normal: {
+          position: 'top',
+          distance: 10,
+          show: true,
+          formatter: ['{{ graph_1_a2_growthrate }}'].join('\n'),
+          backgroundColor: '#eee',
+          borderColor: '#555',
+          borderWidth: 2,
+          borderRadius: 5,
+          padding: 10,
+          fontSize: 18,
+          shadowBlur: 3,
+          shadowColor: '#888',
+          shadowOffsetX: 0,
+          shadowOffsetY: 3,
+          textBorderColor: '#000',
+          textBorderWidth: 3,
+          color: '#992233'
+        }
+      }
     }
   ]
 };
