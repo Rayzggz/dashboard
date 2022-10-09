@@ -1,6 +1,6 @@
 document.getElementById('graph_1_d1').innerHTML = '<h1 class="mdui-center">{{ graph_1_d1_data }} kBTU</h1>';
 
-document.getElementById('graph_1_d2').innerHTML = '<h1 class="mdui-center">{{ graph_1_d2_data }} $</h1>';
+document.getElementById('graph_1_d2').innerHTML = '<h1 class="mdui-center">$ {{ graph_1_d2_data }}</h1>';
 
 document.getElementById('graph_1_a2').innerHTML = '<h1 class="mdui-center">{{ graph_1_a2_data }} %</h1>';
 
