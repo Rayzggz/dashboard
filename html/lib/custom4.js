@@ -3,6 +3,12 @@ window.onresize = function() {
     graph_4_c2.resize();
   };
 var option = {
+	legend: {
+    // Try 'horizontal'
+    orient: 'vertical',
+    right: 10,
+    top: 'center'
+  },
   xAxis: {
 	type: 'category',
 	name: 'month',
