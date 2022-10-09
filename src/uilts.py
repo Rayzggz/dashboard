@@ -38,4 +38,19 @@ def name4year(name: str):
 
 
 def postProcess(dataF: float):
+    """
+    post process the data
+    :param dataF:
+    :return:
+    """
     return '{:,}'.format(round(dataF, data.round_num))
+
+
+def nullCheck4Bar():
+    print("ERR: null")
+    return ["[0]", "[0]"]
+
+
+def nullCheck4Text():
+    print("Err: null")
+    return "0"

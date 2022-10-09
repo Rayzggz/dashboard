@@ -8,7 +8,7 @@ import pandas as pd
 from src import uilts
 
 dorm_building_name = "Smith-Steeb Hall"
-# how many people in current selected dorm building
+# how many people in current selected dorm building, no for non dorm building
 current_data_building_number_people = 1052
 non_dorm_building_name = "Thompson, William Oxley, Memorial Library"
 weather_prefix_name = "Ohio State University"
@@ -46,6 +46,9 @@ def processNaN(data: list):
     """
     re = data.copy()
     for i in range(0, len(data)):
+        if data[i] < 0:
+            # is < 0, use zero fill
+            re[i] = 0
         if np.isnan(data[i]):
             # if Nan is first item
             if i == 0:

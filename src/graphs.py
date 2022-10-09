@@ -11,6 +11,9 @@ def graph_1_a1():
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.day.value, len(tmp)]
     re = data.washData(tmp, ran=ran)
+    if re == [-1]:
+        # null check
+        return uilts.nullCheck4Bar()
     names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.hour, convert_name=True)
     return [str(names), str(re)]
 
@@ -70,6 +73,9 @@ def graph_1_d1():
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.day.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.sum, unit=data.TimeUnit.day)
+    if re == [-1]:
+        # null check
+        return uilts.nullCheck4Bar()
     assert len(re) == 1
     return str(uilts.postProcess(re[0]))
 
@@ -94,6 +100,9 @@ def graph_2_d1():
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.month.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.sum, unit=data.TimeUnit.month)
+    if re == [-1]:
+        # null check
+        return uilts.nullCheck4Text()
     assert len(re) == 1
     return str(uilts.postProcess(re[0]))
 
@@ -126,6 +135,9 @@ def graph_2_a1():
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.month.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.average, unit=data.TimeUnit.day)
+    if re == [-1]:
+        # null check
+        return uilts.nullCheck4Bar()
     assert len(re) == 30
     names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
     assert len(names) == 30
@@ -169,11 +181,16 @@ def graph_3_c1():
     :return: None
     """
     tmp = data.getData(data.current_data, "Total Energy Consumption")
+    # noinspection PyTypeChecker
     tmp = tmp[:int(len(tmp) / data.TimeUnit.year.value) * data.TimeUnit.year.value]
+    # noinspection PyTypeChecker
     tmp2 = data.current_data[1][0][
            :int(len(data.current_data[1][0]) / data.TimeUnit.year.value) * data.TimeUnit.year.value]
     # noinspection PyTypeChecker
     re = data.washData(tmp, method=data.CompressMethods.sum, unit=data.TimeUnit.year)
+    if re == [-1]:
+        # null check
+        return uilts.nullCheck4Bar()
     # assert len(re) == (data.current_date - data.)
     names = data.compressNames(tmp2, unit=data.TimeUnit.year, convert_name=True)
     return [str(names), str(re)]
