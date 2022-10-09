@@ -205,3 +205,14 @@ def getData(data: list, prefix: str):
         if data[0][i][:len(prefix)] == prefix:
             return data[1][i]
     raise Exception("prefix not found getData")
+
+
+def getDailyData(dataList: list, tag: str):
+    tmp = getData(dataList, tag)
+    ran = [len(tmp) - 24, len(tmp)]
+    re = washData(tmp, ran=ran, method=CompressMethods.sum, unit=TimeUnit.hour)
+    if re != [-1]:
+        names = compressNames(dataList[1][0], ran=ran, unit=TimeUnit.day, convert_name=True)
+        assert len(names) == 1
+        return "{value: " + str(re[0]) + ", name:'" + tag + "'},"
+    return ""
