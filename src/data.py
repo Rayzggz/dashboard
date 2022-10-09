@@ -1,13 +1,18 @@
-from enum import Enum
+import datetime
 import statistics
-from src import uilts
-import pandas as pd
+from enum import Enum
+
 import numpy as np
+import pandas as pd
+
+from src import uilts
 
 dorm_building_name = "Smith-Steeb Hall"
 dorm_building_number_people = 1052
 non_dorm_building_name = "Thompson, William Oxley, Memorial Library"
 weather_prefix_name = "Ohio State University"
+current_date = datetime.datetime(2022, 10, 6)
+oldest_date = datetime.datetime(2018, 1, 1, 0, 0, 0)
 
 
 class TimeUnit(Enum):
@@ -96,26 +101,26 @@ def compressNames(names: list, ran=None, unit: TimeUnit = TimeUnit.hour, convert
     """
     if ran is None:
         ran = [0, len(names)]
-    tmp = names.copy()[ran[0]:ran[1]]
-    tmp.extend([-1 for _ in range(0, len(names) % unit.value)])
+    tmp_list = names.copy()[ran[0]:ran[1]]
+    tmp_list.extend([-1 for _ in range(len(tmp_list) % unit.value)])
     re = []
-    for i in range(0, len(tmp), unit.value):
+    for i in range(0, len(tmp_list), unit.value):
         if unit == TimeUnit.hour:
-            tmp = names[i]
+            tmp = tmp_list[i]
             if convert_name:
-                tmp = uilts.name4hour(names[i])
+                tmp = uilts.name4hour(tmp_list[i])
         elif unit == TimeUnit.day:
-            tmp = str(names[i]).split("T")[0]
+            tmp = str(tmp_list[i]).split("T")[0]
             if convert_name:
-                tmp = uilts.name4day(names[i])
+                tmp = uilts.name4day(tmp_list[i])
         elif unit == TimeUnit.year:
-            tmp = str(names[i])[:4]
+            tmp = str(tmp_list[i])[:4]
             if convert_name:
-                tmp = uilts.name4year(names[i])
+                tmp = uilts.name4year(tmp_list[i])
         elif unit == TimeUnit.month:
-            tmp = str(names[i])[:7]
+            tmp = str(tmp_list[i])[:7]
             if convert_name:
-                tmp = uilts.name4month(names[i])
+                tmp = uilts.name4month(tmp_list[i])
         else:
             raise Exception("TimeUnit out")
         re.append(tmp)
@@ -141,7 +146,7 @@ def washData(data: list, ran=None, method: CompressMethods = CompressMethods.ave
     if null_num > len(tmp) / 2:
         # invalid data
         return [-1]
-    tmp.extend([-1 for _ in range(0, len(data) % unit.value)])
+    tmp.extend([-1 for _ in range(0, len(tmp) % unit.value)])
     re = []
     for i in range(0, len(tmp), unit.value):
         # wash data
@@ -234,3 +239,32 @@ def getMonthlyData(dataList: list, tag: str):
         assert len(names) == 1
         return "{value: " + str(re[0]) + ", name:'" + tag + "'},"
     return ""
+
+
+def getYearlyData(dataList: list, tag: str):
+    tmp = getData(dataList, tag)
+    ran = [len(tmp) - TimeUnit.year.value, len(tmp)]
+    re = washData(tmp, ran=ran, method=CompressMethods.sum, unit=TimeUnit.year)
+    assert len(re) == 1
+    if re != [-1]:
+        names = compressNames(dataList[1][0], ran=ran, unit=TimeUnit.year, convert_name=True)
+        assert len(names) == 1
+        return "{value: " + str(re[0]) + ", name:'" + tag + "'},"
+    return ""
+
+
+def getWeatherData(dataList: list, yearRev: int = 0):
+    """
+    get Monthly weather data in specific year
+    :param dataList:
+    :param yearRev:
+    :return:
+    """
+    tmp = getData(dataList, "NOAA Average Daily Temperature")
+    # noinspection PyTypeChecker
+    ran = [int(len(tmp) / TimeUnit.year.value) * TimeUnit.year.value - TimeUnit.year.value * (yearRev + 1),
+           int(len(tmp) / TimeUnit.year.value) * TimeUnit.year.value - TimeUnit.year.value * yearRev]
+    re = washData(tmp, ran=ran, method=CompressMethods.average, unit=TimeUnit.month)
+    # warn
+    return "{name: '" + str((current_date - datetime.timedelta(days=-365 * yearRev)).year) + "',data:" + str(
+        re) + ", type: 'line',stack: 'x'},"
