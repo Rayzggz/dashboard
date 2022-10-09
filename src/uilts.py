@@ -47,10 +47,27 @@ def postProcess(dataF: float):
 
 
 def nullCheck4Bar():
+    """
+    if you get the bar failed because get null from washData, use this and return 0 to ensure the program can run
+    :return:
+    """
     print("ERR: null")
     return ["[0]", "[0]"]
 
 
 def nullCheck4Text():
+    """
+    if you get the text failed because get null from washData, use this and return '0' to ensure the program can run
+    :return:
+    """
     print("Err: null")
     return "0"
+
+
+def err(text: str):
+    """
+    print error out, user can self-define this one
+    :param text: output text
+    :return:
+    """
+    print("Err: " + text)

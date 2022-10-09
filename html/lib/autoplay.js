@@ -9,6 +9,8 @@ function loadAnimate() {
     let timer = setInterval(function () {
         if (tmp <= 0) {
             clearInterval(timer);
+            loadingDiv.style.filter = 'alpha(opacity=0)';
+            loadingDiv.style.opacity = 0;
         } else {
             tmp = tmp - 2;
             loadingDiv.style.filter = 'alpha(opacity=' + tmp + ')';

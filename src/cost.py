@@ -79,7 +79,7 @@ def getMonthlyCost(target_data: list, monthRevIndex: int = 0):
                                                len(target_data[1][0]) - TimeUnit.day.value * 30 * monthRevIndex],
                        CompressMethods.sum, TimeUnit.month)
         if tmp == [-1]:
-            print("Err: washData return -1, getMonthlyCost," + str(monthRevIndex))
+            uilts.err("washData return -1, getMonthlyCost," + str(monthRevIndex))
             continue
         assert len(tmp) == 1
         year = (current_date + datetime.timedelta(days=-30)).year.__str__()
@@ -102,7 +102,7 @@ def getMonthlyCostForPie(target_data: list, tag: str):
     tmp = washData(target_data[1][index], [len(target_data[1][0]) - TimeUnit.month.value, len(target_data[1][0])],
                    CompressMethods.sum, TimeUnit.month)
     if tmp == [-1]:
-        print("Err: washData return -1, getMonthlyCostForPie" + tag)
+        uilts.err("washData return -1, getMonthlyCostForPie" + tag)
         return "{value:0, name:'" + tag + "'},"
     assert len(tmp) == 1
     year = (current_date + datetime.timedelta(days=-30)).year.__str__()
@@ -130,7 +130,7 @@ def getYearlyCost(target_data: list):
         tmp = washData(target_data[1][index], [len(target_data[1][0]) - TimeUnit.year.value, len(target_data[1][0])],
                        CompressMethods.sum, TimeUnit.year)
         if tmp == [-1]:
-            print("Err: washData return -1, getYearlyCost")
+            uilts.err("washData return -1, getYearlyCost")
             continue
         assert len(tmp) == 1
         year = (current_date + datetime.timedelta(days=-365)).year.__str__()
@@ -153,7 +153,7 @@ def getYearlyCostForPie(target_data: list, tag: str):
     tmp = washData(target_data[1][index], [len(target_data[1][0]) - TimeUnit.year.value, len(target_data[1][0])],
                    CompressMethods.sum, TimeUnit.year)
     if tmp == [-1]:
-        print("Err: washData return -1, getYearlyCostForPie," + tag)
+        uilts.err("washData return -1, getYearlyCostForPie," + tag)
         return "{value:0, name:'" + tag + "'},"
     assert len(tmp) == 1
     year = (current_date + datetime.timedelta(days=-365)).year.__str__()
