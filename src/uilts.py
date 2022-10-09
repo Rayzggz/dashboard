@@ -16,6 +16,15 @@ def name4day(name: str):
     return int(name.split("T")[0].split("-")[2])
 
 
+def name4month(name: str):
+    """
+    get the month of name
+    :param name: name
+    :return: month
+    """
+    return int(name.split("T")[0].split("-")[1])
+
+
 def name4year(name: str):
     """
     get the year of name

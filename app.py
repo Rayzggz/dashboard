@@ -31,7 +31,7 @@ def processText(content: str, prefix: str, text: str):
 
 
 @app.route('/lib/custom1.js')
-def js():
+def page1():
     file = open(app.static_folder + "/lib/custom1.js", "r", encoding="utf-8")
     content = file.read()
     file.close()
@@ -41,6 +41,20 @@ def js():
     content = processText(content, "graph_1_d2", graphs.graph_1_d2())
     content = processText(content, "graph_1_b1", graphs.graph_1_b1())
     content = processText(content, "graph_1_b2", graphs.graph_1_b2())
+    return content
+
+
+@app.route('/lib/custom2.js')
+def page2():
+    file = open(app.static_folder + "/lib/custom2.js", "r", encoding="utf-8")
+    content = file.read()
+    file.close()
+    content = processBar(content, "graph_2_a1", graphs.graph_2_a1())
+    content = processText(content, "graph_2_d1", graphs.graph_2_d1())
+    content = processText(content, "graph_2_d2", graphs.graph_2_d2())
+    content = processText(content, "graph_2_d3", graphs.graph_2_d3())
+    content = processText(content, "graph_2_b1", graphs.graph_2_b1())
+    content = processText(content, "graph_2_b2", graphs.graph_2_b2())
     return content
 
 

@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 
 dorm_building_name = "Smith-Steeb Hall"
+dorm_building_number_people = 1052
 non_dorm_building_name = "Thompson, William Oxley, Memorial Library"
 weather_prefix_name = "Ohio State University"
 
@@ -12,6 +13,7 @@ weather_prefix_name = "Ohio State University"
 class TimeUnit(Enum):
     hour = 1
     day = 24
+    month = 24 * 30
     year = 24 * 365
 
     def __int__(self):
@@ -70,7 +72,7 @@ def compressData(data: list, method: CompressMethods):
     """
     tmp = [a for a in data if a > -1]
     tmp = processNaN(tmp)
-    assert len([0 for a in data if np.isnan(a)]) == 0
+    assert len([0 for a in tmp if np.isnan(a)]) == 0
     if len(data) == 1:
         return data[0]
     if method == CompressMethods.average:
@@ -98,19 +100,22 @@ def compressNames(names: list, ran=None, unit: TimeUnit = TimeUnit.hour, convert
     tmp.extend([-1 for _ in range(0, len(names) % unit.value)])
     re = []
     for i in range(0, len(tmp), unit.value):
-        tmp = ""
         if unit == TimeUnit.hour:
             tmp = names[i]
             if convert_name:
-                tmp = uilts.name4hour(tmp)
+                tmp = uilts.name4hour(names[i])
         elif unit == TimeUnit.day:
             tmp = str(names[i]).split("T")[0]
             if convert_name:
-                tmp = uilts.name4day(tmp)
+                tmp = uilts.name4day(names[i])
         elif unit == TimeUnit.year:
             tmp = str(names[i])[:4]
             if convert_name:
-                tmp = uilts.name4year(tmp)
+                tmp = uilts.name4year(names[i])
+        elif unit == TimeUnit.month:
+            tmp = str(names[i])[:7]
+            if convert_name:
+                tmp = uilts.name4month(names[i])
         else:
             raise Exception("TimeUnit out")
         re.append(tmp)
@@ -209,10 +214,23 @@ def getData(data: list, prefix: str):
 
 def getDailyData(dataList: list, tag: str):
     tmp = getData(dataList, tag)
-    ran = [len(tmp) - 24, len(tmp)]
-    re = washData(tmp, ran=ran, method=CompressMethods.sum, unit=TimeUnit.hour)
+    ran = [len(tmp) - TimeUnit.day.value, len(tmp)]
+    re = washData(tmp, ran=ran, method=CompressMethods.sum, unit=TimeUnit.day)
+    assert len(re) == 1
     if re != [-1]:
         names = compressNames(dataList[1][0], ran=ran, unit=TimeUnit.day, convert_name=True)
+        assert len(names) == 1
+        return "{value: " + str(re[0]) + ", name:'" + tag + "'},"
+    return ""
+
+
+def getMonthlyData(dataList: list, tag: str):
+    tmp = getData(dataList, tag)
+    ran = [len(tmp) - TimeUnit.month.value, len(tmp)]
+    re = washData(tmp, ran=ran, method=CompressMethods.sum, unit=TimeUnit.month)
+    assert len(re) == 1
+    if re != [-1]:
+        names = compressNames(dataList[1][0], ran=ran, unit=TimeUnit.month, convert_name=True)
         assert len(names) == 1
         return "{value: " + str(re[0]) + ", name:'" + tag + "'},"
     return ""
