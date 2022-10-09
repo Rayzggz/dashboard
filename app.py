@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-from src import graphs
+from src import graphs, data
 
 app = Flask(__name__, static_folder='html',
             template_folder='html',
@@ -82,7 +82,7 @@ def page4():
 
 @app.route('/')
 def indexHtml():  # put application's code here
-    return render_template('index.html')
+    return render_template('index.html', current_date=data.current_date.strftime("%m/%d/%Y"))
 
 
 if __name__ == '__main__':
