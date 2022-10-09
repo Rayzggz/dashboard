@@ -4,13 +4,17 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
+	type: 'category',
+	name: 'month',
     data: {{ graph_4_c2_names }}
   },
-  yAxis: {},
+  yAxis: {
+	  type: 'value',
+	  name: 'temperature(Farenheit)'
+  },
   series: [
     {
-      name: '销量',
-      type: 'bar',
+      type: 'line',
       data: {{ graph_4_c2_data }}
     }
   ]

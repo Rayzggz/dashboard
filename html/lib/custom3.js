@@ -4,13 +4,17 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
+	type: 'category',
+	name: 'Year',
     data: {{ graph_3_c1_names }}
   },
-  yAxis: {},
+  yAxis: {
+	  name: 'kBTV',
+	  type: 'value'
+  },
   series: [
     {
-      name: '销量',
-      type: 'bar',
+      type: 'line',
       data: {{ graph_3_c1_data }}
     }
   ]
@@ -18,7 +22,7 @@ var option = {
 graph_3_c1.setOption(option);
 
 	
-document.getElementById('graph_3_d2').innerHTML = '<h2>{{ graph_3_d2_data }}$</h2>';
+document.getElementById('graph_3_d2').innerHTML = '<h2>{{ graph_3_d2_data }} $</h2>';
 
 var graph_3_b1 = echarts.init(document.getElementById('graph_3_b1'));	
 window.onresize = function() {
@@ -56,13 +60,16 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
+	type: 'category',
     data: {{ graph_3_c2_names }}
   },
-  yAxis: {},
+  yAxis: {
+	  type: 'value',
+	  name: 'total energy usage for a month(kBTV)'
+  },
   series: [
     {
-      name: '销量',
-      type: 'bar',
+      type: 'line',
       data: {{ graph_3_c2_data }}
     }
   ]
