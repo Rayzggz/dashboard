@@ -47,7 +47,7 @@ window.onresize = function() {
   };
 var option = {
   xAxis: {
-    data: {{ graph_1_a1_names }}，
+    data: {{ graph_1_a1_names }},
 	name: 'time(hour)'
   },
   yAxis: {
