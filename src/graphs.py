@@ -7,11 +7,11 @@ def graph_1_a1():
     Daily energy consumption
     :return: None
     """
-    tmp = data.getData(data.dorm, "Total Energy Consumption")
+    tmp = data.getData(data.current_data, "Total Energy Consumption")
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.day.value, len(tmp)]
     re = data.washData(tmp, ran=ran)
-    names = data.compressNames(data.dorm[1][0], ran=ran, unit=data.TimeUnit.hour, convert_name=True)
+    names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.hour, convert_name=True)
     return [str(names), str(re)]
 
 
@@ -22,12 +22,12 @@ def graph_1_a2():
     :return: None
     """
     # noinspection PyTypeChecker
-    ran = [len(data.dorm[1][0]) - data.TimeUnit.day.value * 2, len(data.dorm[1][0])]
-    re = cost.getDailyCost(data.dorm, 0)
-    re2 = cost.getDailyCost(data.dorm, 1)
-    names = data.compressNames(data.dorm[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
-    assert len(names) == 2
-    return [str(names), str([re, re2])], (re - re2) / re * 100
+    # ran = [len(data.current_data[1][0]) - data.TimeUnit.day.value * 2, len(data.current_data[1][0])]
+    re = cost.getDailyCost(data.current_data, 0)
+    re2 = cost.getDailyCost(data.current_data, 1)
+    # names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
+    # assert len(names) == 2
+    return str(round((re - re2) / re * 100, data.round_num))
 
 
 def graph_1_b1():
@@ -37,11 +37,11 @@ def graph_1_b1():
     :return: None
     """
     re = "["
-    re += data.getDailyData(data.dorm, "Steam")
-    re += data.getDailyData(data.dorm, "Electricity")
-    re += data.getDailyData(data.dorm, "Chilled Water")
-    re += data.getDailyData(data.dorm, "Hot Water")
-    re += data.getDailyData(data.dorm, "Natural Gas")
+    re += data.getDailyData(data.current_data, "Steam")
+    re += data.getDailyData(data.current_data, "Electricity")
+    re += data.getDailyData(data.current_data, "Chilled Water")
+    re += data.getDailyData(data.current_data, "Hot Water")
+    re += data.getDailyData(data.current_data, "Natural Gas")
     return re[:-1] + "]"
 
 
@@ -52,11 +52,11 @@ def graph_1_b2():
     :return: None
     """
     re = "["
-    re += cost.getDailyCostForPie(data.dorm, "Steam", 0)
-    re += cost.getDailyCostForPie(data.dorm, "Electricity", 0)
-    re += cost.getDailyCostForPie(data.dorm, "Chilled Water", 0)
-    re += cost.getDailyCostForPie(data.dorm, "Hot Water", 0)
-    re += cost.getDailyCostForPie(data.dorm, "Natural Gas", 0)
+    re += cost.getDailyCostForPie(data.current_data, "Steam", 0)
+    re += cost.getDailyCostForPie(data.current_data, "Electricity", 0)
+    re += cost.getDailyCostForPie(data.current_data, "Chilled Water", 0)
+    re += cost.getDailyCostForPie(data.current_data, "Hot Water", 0)
+    re += cost.getDailyCostForPie(data.current_data, "Natural Gas", 0)
     return re[:-1] + "]"
 
 
@@ -66,12 +66,12 @@ def graph_1_d1():
     Daily energy consumption
     :return: None
     """
-    tmp = data.getData(data.dorm, "Total Energy Consumption")
+    tmp = data.getData(data.current_data, "Total Energy Consumption")
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.day.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.sum, unit=data.TimeUnit.day)
     assert len(re) == 1
-    return str(re[0])
+    return str(round(re[0], data.round_num))
 
 
 def graph_1_d2():
@@ -80,8 +80,8 @@ def graph_1_d2():
     Daily cost
     :return: None
     """
-    re = cost.getDailyCost(data.dorm, 0)
-    return str(re)
+    re = cost.getDailyCost(data.current_data, 0)
+    return str(round(re, data.round_num))
 
 
 def graph_2_d1():
@@ -90,12 +90,12 @@ def graph_2_d1():
     Monthly energy consumption
     :return: None
     """
-    tmp = data.getData(data.dorm, "Total Energy Consumption")
+    tmp = data.getData(data.current_data, "Total Energy Consumption")
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.month.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.sum, unit=data.TimeUnit.month)
     assert len(re) == 1
-    return str(re[0])
+    return str(round(re[0], data.round_num))
 
 
 def graph_2_d2():
@@ -104,7 +104,7 @@ def graph_2_d2():
     Monthly cost
     :return: None
     """
-    return str(cost.getMonthlyCost(data.dorm))
+    return str(round(cost.getMonthlyCost(data.current_data), data.round_num))
 
 
 def graph_2_d3():
@@ -113,7 +113,7 @@ def graph_2_d3():
     Monthly cost per person
     :return: None
     """
-    return str(cost.getMonthlyCost(data.dorm) / data.dorm_building_number_people)
+    return str(round(cost.getMonthlyCost(data.current_data) / data.current_data_building_number_people, data.round_num))
 
 
 def graph_2_a1():
@@ -122,12 +122,12 @@ def graph_2_a1():
     Daily energy consumption in this Month
     :return: None
     """
-    tmp = data.getData(data.dorm, "Total Energy Consumption")
+    tmp = data.getData(data.current_data, "Total Energy Consumption")
     # noinspection PyTypeChecker
     ran = [len(tmp) - data.TimeUnit.month.value, len(tmp)]
     re = data.washData(tmp, ran=ran, method=data.CompressMethods.average, unit=data.TimeUnit.day)
     assert len(re) == 30
-    names = data.compressNames(data.dorm[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
+    names = data.compressNames(data.current_data[1][0], ran=ran, unit=data.TimeUnit.day, convert_name=True)
     assert len(names) == 30
     return [str(names), str(re)]
 
@@ -139,11 +139,11 @@ def graph_2_b1():
     :return: None
     """
     re = "["
-    re += data.getMonthlyData(data.dorm, "Steam")
-    re += data.getMonthlyData(data.dorm, "Electricity")
-    re += data.getMonthlyData(data.dorm, "Chilled Water")
-    re += data.getMonthlyData(data.dorm, "Hot Water")
-    re += data.getMonthlyData(data.dorm, "Natural Gas")
+    re += data.getMonthlyData(data.current_data, "Steam")
+    re += data.getMonthlyData(data.current_data, "Electricity")
+    re += data.getMonthlyData(data.current_data, "Chilled Water")
+    re += data.getMonthlyData(data.current_data, "Hot Water")
+    re += data.getMonthlyData(data.current_data, "Natural Gas")
     return re[:-1] + "]"
 
 
@@ -154,11 +154,11 @@ def graph_2_b2():
     :return: None
     """
     re = "["
-    re += cost.getMonthlyCostForPie(data.dorm, "Steam")
-    re += cost.getMonthlyCostForPie(data.dorm, "Electricity")
-    re += cost.getMonthlyCostForPie(data.dorm, "Chilled Water")
-    re += cost.getMonthlyCostForPie(data.dorm, "Hot Water")
-    re += cost.getMonthlyCostForPie(data.dorm, "Natural Gas")
+    re += cost.getMonthlyCostForPie(data.current_data, "Steam")
+    re += cost.getMonthlyCostForPie(data.current_data, "Electricity")
+    re += cost.getMonthlyCostForPie(data.current_data, "Chilled Water")
+    re += cost.getMonthlyCostForPie(data.current_data, "Hot Water")
+    re += cost.getMonthlyCostForPie(data.current_data, "Natural Gas")
     return re[:-1] + "]"
 
 
@@ -168,9 +168,10 @@ def graph_3_c1():
     Yearly energy consumption, bar chart
     :return: None
     """
-    tmp = data.getData(data.dorm, "Total Energy Consumption")
+    tmp = data.getData(data.current_data, "Total Energy Consumption")
     tmp = tmp[:int(len(tmp) / data.TimeUnit.year.value) * data.TimeUnit.year.value]
-    tmp2 = data.dorm[1][0][:int(len(data.dorm[1][0]) / data.TimeUnit.year.value) * data.TimeUnit.year.value]
+    tmp2 = data.current_data[1][0][
+           :int(len(data.current_data[1][0]) / data.TimeUnit.year.value) * data.TimeUnit.year.value]
     # noinspection PyTypeChecker
     re = data.washData(tmp, method=data.CompressMethods.sum, unit=data.TimeUnit.year)
     # assert len(re) == (data.current_date - data.)
@@ -184,7 +185,7 @@ def graph_3_d2():
     Yearly cost
     :return: None
     """
-    return str(cost.getYearlyCost(data.dorm))
+    return str(round(cost.getYearlyCost(data.current_data), data.round_num))
 
 
 def graph_3_b1():
@@ -194,11 +195,11 @@ def graph_3_b1():
     :return: None
     """
     re = "["
-    re += data.getYearlyData(data.dorm, "Steam")
-    re += data.getYearlyData(data.dorm, "Electricity")
-    re += data.getYearlyData(data.dorm, "Chilled Water")
-    re += data.getYearlyData(data.dorm, "Hot Water")
-    re += data.getYearlyData(data.dorm, "Natural Gas")
+    re += data.getYearlyData(data.current_data, "Steam")
+    re += data.getYearlyData(data.current_data, "Electricity")
+    re += data.getYearlyData(data.current_data, "Chilled Water")
+    re += data.getYearlyData(data.current_data, "Hot Water")
+    re += data.getYearlyData(data.current_data, "Natural Gas")
     return re[:-1] + "]"
 
 
@@ -209,11 +210,11 @@ def graph_3_b2():
     :return: None
     """
     re = "["
-    re += cost.getYearlyCostForPie(data.dorm, "Steam")
-    re += cost.getYearlyCostForPie(data.dorm, "Electricity")
-    re += cost.getYearlyCostForPie(data.dorm, "Chilled Water")
-    re += cost.getYearlyCostForPie(data.dorm, "Hot Water")
-    re += cost.getYearlyCostForPie(data.dorm, "Natural Gas")
+    re += cost.getYearlyCostForPie(data.current_data, "Steam")
+    re += cost.getYearlyCostForPie(data.current_data, "Electricity")
+    re += cost.getYearlyCostForPie(data.current_data, "Chilled Water")
+    re += cost.getYearlyCostForPie(data.current_data, "Hot Water")
+    re += cost.getYearlyCostForPie(data.current_data, "Natural Gas")
     return re[:-1] + "]"
 
 
@@ -225,7 +226,7 @@ def graph_3_c2():
     """
     re = []
     for i in range(11, -1, -1):
-        re.append(str(cost.getMonthlyCost(data.dorm, i)))
+        re.append(str(cost.getMonthlyCost(data.current_data, i)))
     assert len(re) == 12
     return [str(list(range(12, 0, -1))), str(re)]
 

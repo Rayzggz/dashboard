@@ -8,11 +8,13 @@ import pandas as pd
 from src import uilts
 
 dorm_building_name = "Smith-Steeb Hall"
-dorm_building_number_people = 1052
+# how many people in current selected dorm building
+current_data_building_number_people = 1052
 non_dorm_building_name = "Thompson, William Oxley, Memorial Library"
 weather_prefix_name = "Ohio State University"
 current_date = datetime.datetime(2022, 10, 6)
 oldest_date = datetime.datetime(2018, 1, 1, 0, 0, 0)
+round_num = 2
 
 
 class TimeUnit(Enum):
@@ -29,6 +31,8 @@ class CompressMethods(Enum):
     average = 1
     median = 2
     sum = 3
+    max = 4
+    min = 5
 
     def __int__(self):
         return self.value
@@ -86,6 +90,10 @@ def compressData(data: list, method: CompressMethods):
         return statistics.median(tmp)
     elif method == CompressMethods.sum:
         return sum(tmp)
+    elif method == CompressMethods.max:
+        return max(tmp)
+    elif method == CompressMethods.min:
+        return min(tmp)
     else:
         raise Exception("err: compressData out")
 
@@ -202,6 +210,7 @@ def readData():
 
 
 dorm, non_dorm, weather = readData()
+current_data = dorm
 
 
 def getData(data: list, prefix: str):
@@ -264,7 +273,7 @@ def getWeatherData(dataList: list, yearRev: int = 0):
     # noinspection PyTypeChecker
     ran = [int(len(tmp) / TimeUnit.year.value) * TimeUnit.year.value - TimeUnit.year.value * (yearRev + 1),
            int(len(tmp) / TimeUnit.year.value) * TimeUnit.year.value - TimeUnit.year.value * yearRev]
-    re = washData(tmp, ran=ran, method=CompressMethods.average, unit=TimeUnit.month)
+    re = washData(tmp, ran=ran, method=CompressMethods.min, unit=TimeUnit.month)
     # warn
-    return "{name: '" + str((current_date - datetime.timedelta(days=-365 * yearRev)).year) + "',data:" + str(
-        re) + ", type: 'line',stack: 'x'},"
+    return "{name: '" + str((current_date - datetime.timedelta(days=365 * (yearRev + 1))).year) + "',data:" + str(
+        re) + ", type: 'line'},"
