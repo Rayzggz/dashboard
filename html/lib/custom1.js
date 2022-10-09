@@ -1,8 +1,8 @@
-document.getElementById('graph_1_d1').innerHTML = '<p>{{ graph_1_d1_data }} kBTU</p>';
+document.getElementById('graph_1_d1').innerHTML = '<h1>{{ graph_1_d1_data }} kBTU</p>';
 
-document.getElementById('graph_1_d2').innerHTML = '<h2>{{ graph_1_d2_data }} $</h2>';
+document.getElementById('graph_1_d2').innerHTML = '<h1>{{ graph_1_d2_data }} $</h2>';
 
-document.getElementById('graph_1_a2').innerHTML = '<h2>{{ graph_1_a2_data }} %</h2>';
+document.getElementById('graph_1_a2').innerHTML = '<h1>{{ graph_1_a2_data }} %</h2>';
 
 
 var graph_1_b1 = echarts.init(document.getElementById('graph_1_b1'));	
