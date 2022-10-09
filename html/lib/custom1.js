@@ -1,6 +1,6 @@
-document.getElementById('graph_1_d1').innerHTML = '<h2>{{ graph_1_d1_data }}</h2>';
+document.getElementById('graph_1_d1').innerHTML = '<h2>{{ graph_1_d1_data }}kBTU</h2>';
 
-document.getElementById('graph_1_d2').innerHTML = '<h2>{{ graph_1_d2_data }}</h2>';
+document.getElementById('graph_1_d2').innerHTML = '<h2>{{ graph_1_d2_data }}$</h2>';
 
 
 
@@ -12,7 +12,9 @@ var option = {
   xAxis: {
     data: {{ graph_1_a2_names }}
   },
-  yAxis: {},
+  yAxis: {
+	  name: 'dollar($)'
+  },
   series: [
     {
       name: '销量',
@@ -46,8 +48,11 @@ window.onresize = function() {
 var option = {
   xAxis: {
     data: {{ graph_1_a1_names }}
+	name: 'time(hour)'
   },
-  yAxis: {},
+  yAxis: {
+	  name: 'total energy comsumptiomption (kBTV)'
+  },
   series: [
     {
       name: '销量',
