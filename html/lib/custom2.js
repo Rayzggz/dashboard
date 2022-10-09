@@ -10,6 +10,10 @@ window.onresize = function() {
     graph_2_b1.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{d}%'
+    },
   series: [
     {
       type: 'pie',
@@ -25,6 +29,10 @@ window.onresize = function() {
     graph_2_a1.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{c}'
+    },
   xAxis: {
     data: {{ graph_2_a1_names }},
 	name: 'days'
@@ -34,7 +42,7 @@ var option = {
   },
   series: [
     {
-      name: '销量',
+      name: 'graph_2_a1',
       type: 'bar',
       data: {{ graph_2_a1_data }}
     }
@@ -49,6 +57,10 @@ window.onresize = function() {
     graph_2_b2.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{d}%'
+    },
   series: [
     {
       type: 'pie',

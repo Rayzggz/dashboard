@@ -3,6 +3,10 @@ window.onresize = function() {
     graph_3_c1.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{c}'
+    },
   xAxis: {
 	type: 'category',
 	name: 'Year',
@@ -29,6 +33,10 @@ window.onresize = function() {
     graph_3_b1.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{d}%'
+    },
   series: [
     {
       type: 'pie',
@@ -44,6 +52,10 @@ window.onresize = function() {
     graph_3_b2.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{d}%'
+    },
   series: [
     {
       type: 'pie',
@@ -59,6 +71,10 @@ window.onresize = function() {
     graph_3_c2.resize();
   };
 var option = {
+  tooltip: {
+      trigger: 'item',
+      formatter: '{c}'
+    },
   xAxis: {
 	type: 'category',
     data: {{ graph_3_c2_names }}

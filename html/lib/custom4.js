@@ -3,6 +3,10 @@ window.onresize = function() {
     graph_4_c2.resize();
   };
 var option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{c}'
+    },
 	legend: {
     // Try 'horizontal'
     orient: 'vertical',
