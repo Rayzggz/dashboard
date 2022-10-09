@@ -82,9 +82,12 @@ def page4():
 
 @app.route('/')
 def indexHtml():  # put application's code here
-    return render_template('index.html', current_date=data.current_date.strftime("%m/%d/%Y"), building_name=data.current_building_name)
+    if data.dorm_switcher == 1:
+        tmp = "Per capita expenditure"
+    else:
+        tmp = "Monthly total electricity cost"
+    return render_template('index.html', current_date=data.current_date.strftime("%m/%d/%Y"), building_name=data.current_building_name, graph_2_d3_title=tmp)
 
 
 if __name__ == '__main__':
     app.run()
-    # test.dailyCostTest()

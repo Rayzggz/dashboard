@@ -15,6 +15,8 @@ weather_prefix_name = "Ohio State University"
 current_date = datetime.datetime(2022, 10, 6)
 oldest_date = datetime.datetime(2018, 1, 1, 0, 0, 0)
 round_num = 2
+# if dorm_switcher == 1, current_data equal to dorm. Otherwise, current_data equal to non_dorm
+dorm_switcher = 1
 
 
 class TimeUnit(Enum):
@@ -213,8 +215,12 @@ def readData():
 
 
 dorm, non_dorm, weather = readData()
-current_data = dorm
-current_building_name = dorm_building_name
+if dorm_switcher == 1:
+    current_data = dorm
+    current_building_name = dorm_building_name
+else:
+    current_data = non_dorm
+    current_building_name = non_dorm_building_name
 
 
 def getData(data: list, prefix: str):

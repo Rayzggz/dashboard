@@ -109,6 +109,27 @@ def getMonthlyCostForPie(target_data: list, tag: str):
     return "{value: " + str(
         tmp[0] * price[prefix[index]][year] * price[prefix[index]]["unit"]) + ", name:'" + tag + "'},"
 
+def getMonthlyCostForCategory(target_data: list, tag: str):
+    """
+    Get Monthly Cost
+    :param tag:
+    :param target_data:
+    :return:
+    """
+    re = 0
+    prefix = ["PlaceHolder", "Steam", "Electricity", "Chilled Water", "Hot Water", "Natural Gas"]
+    assert tag in prefix
+    index = prefix.index(tag)
+    # noinspection PyTypeChecker
+    tmp = washData(target_data[1][index], [len(target_data[1][0]) - TimeUnit.month.value, len(target_data[1][0])],
+                   CompressMethods.sum, TimeUnit.month)
+    if tmp == [-1]:
+        uilts.err("washData return -1, getMonthlyCostForPie" + tag)
+        return "{value:0, name:'" + tag + "'},"
+    assert len(tmp) == 1
+    year = (current_date + datetime.timedelta(days=-30)).year.__str__()
+    return tmp[0] * price[prefix[index]][year] * price[prefix[index]]["unit"]
+
 
 def getYearlyCost(target_data: list):
     """

@@ -28,7 +28,7 @@ document.getElementById("tab").addEventListener("change", function (event) {
 function run() {
     loadAnimate();
     if (i < 4) {
-        inst.next();
+        inst.show(i);
         i++
     } else {
         inst.show(0);

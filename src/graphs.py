@@ -129,6 +129,8 @@ def graph_2_d3():
     Monthly cost per person
     :return: None
     """
+    if data.dorm_switcher == 1:
+        return str(uilts.postProcess(cost.getMonthlyCostForCategory(data.current_data, "Electricity")))
     return str(uilts.postProcess(cost.getMonthlyCost(data.current_data) / data.current_data_building_number_people))
 
 
