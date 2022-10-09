@@ -1,3 +1,6 @@
+from src import data
+
+
 def name4hour(name: str):
     """
     get the hour of name
@@ -32,3 +35,7 @@ def name4year(name: str):
     :return: year
     """
     return int(name.split("T")[0].split("-")[0])
+
+
+def postProcess(dataF: float):
+    return '{:,}'.format(round(dataF, data.round_num))
