@@ -40,6 +40,7 @@ var option = {
   series: [
     {
       type: 'pie',
+        stillShowZeroSum: false,
         label:{
             fontSize:9,
             position: 'inner'
@@ -63,6 +64,7 @@ var option = {
   series: [
     {
       type: 'pie',
+        stillShowZeroSum: false,
         label:{
             fontSize:9,
             position: 'inner'
