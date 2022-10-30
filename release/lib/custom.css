@@ -1,0 +1,41 @@
+/*.mdui-row > [class*="mdui-col-"] {*/
+/*  padding-top: 10px;*/
+/*  padding-bottom: 10px;*/
+/*  background-color: #E8EAF6;*/
+/*  border: 1px solid #C5CAE9;*/
+/*  margin-bottom: 8px;*/
+/*}*/
+
+.unit-opacity {
+    opacity: .6;
+}
+
+#tab {
+    z-index: 11;
+}
+
+#loading {
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    display: block;
+    position: absolute;
+    left: 0;
+}
+
+
+/*#graph1,*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*}*/
+
+/*#graph_1_a2,*/
+/*html,*/
+/*body {*/
+/*  width: 100%;*/
+/*}*/
+/*#graph_1_a2 {*/
+/*  height: 100%;*/
+/*}*/
+
